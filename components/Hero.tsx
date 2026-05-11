@@ -202,7 +202,7 @@ export default function Hero() {
 
               {/* Logo */}
               <div className="rounded-2xl p-3 overflow-hidden" style={{ background:"rgba(255,255,255,.96)" }}>
-                <img src="/rgu.png" alt="RGU" className="w-full h-14 object-contain" />
+                <img src="/logo.png" alt="RGU" className="w-full h-14 object-contain" />
               </div>
 
               {/* Formula */}
