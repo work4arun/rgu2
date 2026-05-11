@@ -1144,15 +1144,165 @@ function RGUWaySection() {
    4. HAPPENING @ RATHINAM
 ═══════════════════════════════════════════════════════════════════ */
 const eventTypes = [
-  { icon: "film", cat: "Annual Cultural", title: "Cultural Fiesta", folder: "annual-cultural", color: "#660066", tag: "FEATURED", date: "May 2–4, 2026" },
-  { icon: "cpu", cat: "Tech Festival", title: "TechRise 2026", folder: "tech-festival", color: "#006699", tag: "LIVE", date: "Apr 18–20, 2026" },
-  { icon: "medal", cat: "Sports", title: "Sports Meet", folder: "sports-meet", color: "#99cc33", tag: "UPCOMING", date: "Apr 25–28, 2026" },
-  { icon: "cap", cat: "Celebration", title: "Founders Day", folder: "founders-day", color: "#660066", tag: "UPCOMING", date: "Jun 1, 2026" },
-  { icon: "flask", cat: "Innovation", title: "Research Expo", folder: "research-expo", color: "#006699", tag: "UPCOMING", date: "Jun 5, 2026" },
-  { icon: "lightbulb", cat: "Hackathon", title: "RGU Hackathon S4", folder: "hackathon", color: "#99cc33", tag: "REGISTER", date: "May 20, 2026" },
+  { icon: "film",      cat: "Annual Cultural", title: "Cultural Fiesta",   color: "#a855f7", date: "May 2–4, 2026",    desc: "A 3-day extravaganza of music, dance and arts uniting 5,000+ students from across the region." },
+  { icon: "cpu",       cat: "Tech Festival",  title: "TechRise 2026",      color: "#38bdf8", date: "Apr 18–20, 2026",  desc: "South India's largest student-led tech expo — robotics, hackathons, and industry leader talks." },
+  { icon: "medal",     cat: "Sports",         title: "Sports Meet",        color: "#a3e635", date: "Apr 25–28, 2026", desc: "Inter-college championship across 20+ disciplines with 1,000+ athletes competing for glory." },
+  { icon: "cap",       cat: "Celebration",    title: "Founders Day",       color: "#f472b6", date: "Jun 1, 2026",     desc: "Honouring the visionaries who turned Rathinam into a world-class institution." },
+  { icon: "flask",     cat: "Innovation",     title: "Research Expo",      color: "#fb923c", date: "Jun 5, 2026",     desc: "Breakthrough research in AI, Sustainability and Engineering presented by our brightest minds." },
+  { icon: "lightbulb", cat: "Hackathon",      title: "RGU Hackathon S4",   color: "#34d399", date: "May 20, 2026",   desc: "24-hour problem-solving sprint. Real challenges, real impact — ₹5 Lakh prize pool." },
 ];
 
-// Scatter offsets per image slot — pre-computed so each photo enters from a different direction
+function HappeningSplitPanel({ visible, eventTypes }) {
+  const [active, setActive] = useState(0);
+  const ev = eventTypes[active];
+
+  return (
+    <div style={{
+      display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0,
+      borderRadius: 28, overflow: "hidden",
+      boxShadow: "0 32px 80px rgba(15,23,42,0.10)",
+      border: "1px solid rgba(15,23,42,0.07)",
+      opacity: visible ? 1 : 0,
+      transform: visible ? "translateY(0)" : "translateY(40px)",
+      transition: "all 0.9s cubic-bezier(0.2,0.8,0.2,1)",
+      marginTop: 56
+    }}>
+
+      {/* LEFT — Navigator */}
+      <div style={{ background: "#f8fafc", borderRight: "1px solid rgba(15,23,42,0.07)" }}>
+        {eventTypes.map((e, i) => {
+          const isActive = active === i;
+          return (
+            <button key={e.title}
+              onClick={() => setActive(i)}
+              style={{
+                width: "100%", display: "flex", alignItems: "center", gap: 20,
+                padding: "24px 32px", border: "none", textAlign: "left",
+                background: isActive ? "#ffffff" : "transparent",
+                borderLeft: `4px solid ${isActive ? e.color : "transparent"}`,
+                borderBottom: "1px solid rgba(15,23,42,0.05)",
+                cursor: "pointer", transition: "all 0.3s ease"
+              }}
+              onMouseEnter={el => { if (!isActive) el.currentTarget.style.background = "rgba(255,255,255,0.6)"; }}
+              onMouseLeave={el => { if (!isActive) el.currentTarget.style.background = "transparent"; }}
+            >
+              <div style={{
+                width: 44, height: 44, borderRadius: 14, flexShrink: 0,
+                background: isActive ? e.color : `${e.color}18`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.35s cubic-bezier(0.175,0.885,0.32,1.275)",
+                transform: isActive ? "scale(1.1)" : "scale(1)"
+              }}>
+                <Icon name={e.icon} size={20} color={isActive ? "#fff" : e.color} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{
+                  fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 800,
+                  textTransform: "uppercase", letterSpacing: "0.12em",
+                  color: isActive ? e.color : "rgba(15,23,42,0.4)",
+                  transition: "color 0.3s", marginBottom: 3
+                }}>{e.cat}</div>
+                <div style={{
+                  fontFamily: "'Sora',sans-serif", fontSize: 16, fontWeight: 800,
+                  color: isActive ? "#0f172a" : "rgba(15,23,42,0.55)",
+                  transition: "color 0.3s", whiteSpace: "nowrap",
+                  overflow: "hidden", textOverflow: "ellipsis"
+                }}>{e.title}</div>
+              </div>
+              {isActive && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke={e.color} strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* RIGHT — Detail Panel */}
+      <div style={{
+        background: "#ffffff", padding: "52px 48px",
+        display: "flex", flexDirection: "column", justifyContent: "center", gap: 28,
+        position: "relative", overflow: "hidden"
+      }}>
+        {/* Decorative glow blob */}
+        <div style={{
+          position: "absolute", top: -60, right: -60, width: 280, height: 280,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${ev.color}20 0%, transparent 70%)`,
+          pointerEvents: "none", transition: "background 0.5s ease"
+        }} />
+        {/* Ghost icon watermark */}
+        <div style={{
+          position: "absolute", bottom: -24, right: -24, opacity: 0.04,
+          pointerEvents: "none", transition: "all 0.5s"
+        }}>
+          <Icon name={ev.icon} size={200} color={ev.color} />
+        </div>
+
+        {/* Icon Badge */}
+        <div style={{
+          width: 72, height: 72, borderRadius: 22,
+          background: `${ev.color}14`,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          border: `1.5px solid ${ev.color}25`
+        }}>
+          <Icon name={ev.icon} size={34} color={ev.color} />
+        </div>
+
+        {/* Category + Date row */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{
+            fontFamily: "'DM Sans',sans-serif", fontWeight: 800, fontSize: 11,
+            textTransform: "uppercase", letterSpacing: "0.18em", color: ev.color
+          }}>{ev.cat}</span>
+          <span style={{ width: 4, height: 4, borderRadius: "50%", background: "rgba(15,23,42,0.2)" }} />
+          <span style={{
+            fontFamily: "'DM Sans',sans-serif", fontSize: 13, fontWeight: 600,
+            color: "rgba(15,23,42,0.45)"
+          }}>{ev.date}</span>
+        </div>
+
+        {/* Title */}
+        <h3 style={{
+          fontFamily: "'Sora',sans-serif", fontWeight: 900, lineHeight: 1.1,
+          fontSize: "clamp(1.8rem,3vw,2.8rem)", color: "#0f172a",
+          letterSpacing: "-.03em", margin: 0
+        }}>{ev.title}</h3>
+
+        {/* Description */}
+        <p style={{
+          fontFamily: "'DM Sans',sans-serif", fontSize: 17, lineHeight: 1.7,
+          color: "rgba(15,23,42,0.6)", margin: 0, maxWidth: 420
+        }}>{ev.desc}</p>
+
+        {/* CTA */}
+        <div>
+          <button style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            padding: "14px 28px", borderRadius: 14,
+            background: ev.color, color: "#fff", border: "none",
+            fontFamily: "'DM Sans',sans-serif", fontWeight: 800, fontSize: 15,
+            cursor: "pointer", transition: "all 0.3s ease",
+            boxShadow: `0 8px 24px ${ev.color}40`
+          }}
+            onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = `0 16px 40px ${ev.color}50`; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = `0 8px 24px ${ev.color}40`; }}
+          >
+            Know More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="#fff" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── legacy helpers kept for reference (unused) ──
 const SCATTER_ORIGINS = [
   { tx: "-120px", ty: "-80px", rot: "-12deg", delay: "0ms" },
   { tx: "100px", ty: "-100px", rot: "10deg", delay: "50ms" },
@@ -1314,107 +1464,56 @@ function InteractiveCollage({ selected, eventTypes, visible }) {
 
 function HappeningSection() {
   const [ref, vis] = useVisible(0.08);
-  const [selected, setSelected] = useState(null);   // null = grid view
-
-  const ev = selected !== null ? eventTypes[selected] : null;
 
   return (
-    <section ref={ref} id="happening" style={{ background: "#ffffff", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="happening" style={{ background: "#f8fafc", padding: "100px 0", position: "relative", overflow: "hidden" }}>
 
-      {/* Dynamic radial glow behind selected event colour */}
+      {/* Subtle grid dot background */}
       <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none", transition: "background 0.8s ease",
-        background: ev
-          ? `radial-gradient(ellipse 70vw 60vh at 50% 50%, ${ev.color}08 0%, transparent 70%)`
-          : "none"
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage: "radial-gradient(rgba(15,23,42,0.06) 1px, transparent 1px)",
+        backgroundSize: "28px 28px"
       }} />
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 10 }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 10 }}>
 
-        {/* ── Section header ── */}
+        {/* ── Section Header ── */}
         <div style={{
-          display: "flex", alignItems: "flex-end", justifyContent: "space-between",
-          flexWrap: "wrap", gap: 20, marginBottom: 48,
-          opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all .8s ease"
+          textAlign: "center", marginBottom: 8,
+          opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)",
+          transition: "all .8s cubic-bezier(0.2,0.8,0.2,1)"
         }}>
-          <div>
-            <h2 style={{
-              fontFamily: "'Sora',sans-serif", fontWeight: 900,
-              fontSize: "clamp(2.8rem,5.5vw,4.6rem)", color: "#0f172a", letterSpacing: "-.03em", lineHeight: 1.2
-            }}>
-              Happening @{" "}
-              <span style={{
-                background: "linear-gradient(90deg,#660066,#006699)",
-                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
-              }}>Rathinam</span>
-            </h2>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "7px 18px", borderRadius: 100,
+            background: "rgba(15,23,42,0.05)", border: "1px solid rgba(15,23,42,0.08)",
+            marginBottom: 20
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", animation: "heroPulse 2s infinite" }} />
+            <span style={{
+              fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: 11,
+              letterSpacing: ".22em", textTransform: "uppercase", color: "#0f172a"
+            }}>Campus Events</span>
           </div>
-          {selected !== null ? (
-            <button onClick={() => setSelected(null)}
-              style={{
-                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14,
-                color: "rgba(15,23,42,.7)", background: "rgba(15,23,42,.04)",
-                border: "1px solid rgba(15,23,42,.08)", padding: "10px 20px", borderRadius: 10,
-                cursor: "pointer", transition: "all .3s", display: "flex", alignItems: "center", gap: 8
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(15,23,42,.08)"; e.currentTarget.style.color = "#0f172a" }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(15,23,42,.04)"; e.currentTarget.style.color = "rgba(15,23,42,.7)" }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-              All Events
-            </button>
-          ) : (
-            <a href="#" style={{
-              fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14,
-              color: "rgba(15,23,42,.6)", textDecoration: "none", letterSpacing: ".08em",
-              border: "1px solid rgba(15,23,42,.15)", padding: "10px 20px", borderRadius: 10, transition: "all .3s"
-            }}
-              onMouseEnter={e => { e.currentTarget.style.color = "#0f172a"; e.currentTarget.style.borderColor = "rgba(15,23,42,.3)" }}
-              onMouseLeave={e => { e.currentTarget.style.color = "rgba(15,23,42,.6)"; e.currentTarget.style.borderColor = "rgba(15,23,42,.15)" }}>
-              View All Events →
-            </a>
-          )}
+          <h2 style={{
+            fontFamily: "'Sora',sans-serif", fontWeight: 900,
+            fontSize: "clamp(2.4rem,5vw,3.8rem)", color: "#0f172a",
+            letterSpacing: "-.03em", lineHeight: 1.1, margin: 0
+          }}>
+            Happening @{" "}
+            <span style={{
+              background: "linear-gradient(90deg,#a855f7,#38bdf8)",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
+            }}>Rathinam</span>
+          </h2>
+          <p style={{
+            fontFamily: "'DM Sans',sans-serif", fontSize: 17, color: "rgba(15,23,42,0.5)",
+            lineHeight: 1.6, marginTop: 16, marginBottom: 0
+          }}>Discover what's energising our campus right now.</p>
         </div>
 
-        {/* ── Event type pill tabs (always visible) ── */}
-        <div style={{
-          display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 32,
-          opacity: vis ? 1 : 0, transition: "opacity .8s ease .1s"
-        }}>
-          {eventTypes.map((et, i) => {
-            const isActive = selected === i;
-            return (
-              <button key={et.folder} onClick={() => setSelected(isActive ? null : i)}
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 18px",
-                  borderRadius: 24, cursor: "pointer", outline: "none",
-                  background: isActive ? `${et.color}15` : "rgba(15,23,42,.03)",
-                  border: `1.5px solid ${isActive ? et.color + "50" : "rgba(15,23,42,.06)"}`,
-                  boxShadow: isActive ? `0 0 0 2px ${et.color}10, 0 8px 24px ${et.color}15` : "none",
-                  transition: "all .35s cubic-bezier(.25,.8,.25,1)"
-                }}
-                onMouseEnter={e => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(15,23,42,.15)"; e.currentTarget.style.background = "rgba(15,23,42,.06)"; } }}
-                onMouseLeave={e => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(15,23,42,.06)"; e.currentTarget.style.background = "rgba(15,23,42,.03)"; } }}>
-                <Icon name={et.icon} size={15} color={isActive ? et.color : "rgba(15,23,42,.45)"} sw={2} />
-                <span style={{
-                  fontFamily: "'DM Sans',sans-serif", fontSize: 15, fontWeight: 700,
-                  color: isActive ? et.color : "rgba(15,23,42,.55)", letterSpacing: ".04em",
-                  transition: "color .3s", lineHeight: 1.6
-                }}>
-                  {et.cat}
-                </span>
-                {isActive && (
-                  <span style={{
-                    width: 6, height: 6, borderRadius: "50%", background: et.color,
-                    animation: "heroPulse 2s infinite", flexShrink: 0
-                  }} />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ── UNIFIED COLLAGE VIEW (Auto-Filters via Tags) ── */}
-        <InteractiveCollage selected={selected} eventTypes={eventTypes} visible={vis} />
+        {/* ── Split Panel ── */}
+        <HappeningSplitPanel visible={vis} eventTypes={eventTypes} />
 
         {/* ── YOUTUBE SCROLL TRACK ── */}
         <div style={{ marginTop: 80 }}>
@@ -1947,7 +2046,7 @@ function RecognitionSection() {
       <div className="absolute top-16 sm:top-24 md:top-auto md:bottom-20 lg:bottom-[16%] left-0 right-0 grid grid-cols-2 md:grid-cols-4 lg:flex lg:justify-evenly items-start lg:items-end px-6 sm:px-10 lg:px-5 z-10 w-full gap-y-8 lg:gap-0">
         {recognitions.map((item, i) => (
           <div key={i} className="rec-node relative flex flex-col items-center w-full lg:w-[140px]"
-               style={{ transform: `translateY(${item.offset}px)` }}>
+            style={{ transform: `translateY(${item.offset}px)` }}>
             {/* Node Card - Infographic Style */}
             <div style={{
               textAlign: "center", marginBottom: 12,
@@ -2412,14 +2511,15 @@ function RankingSection() {
           </p>
         </div>
 
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @media (min-width: 1024px) {
             .ranking-card { grid-column: var(--desktop-col) !important; grid-row: var(--desktop-row) !important; }
           }
         ` }} />
         {/* Dynamic Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[minmax(200px,auto)]"
-             style={{ transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }}>
+          style={{ transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)" }}>
           {rankingCards.map((card, i) => {
             const span = layouts[layoutIdx][i] || { col: "span 1", row: "span 1" };
             const isWide = span.col === "span 2";

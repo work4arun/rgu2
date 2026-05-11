@@ -83,8 +83,8 @@ export default function Footer() {
         <div className="py-8 grid md:grid-cols-3 gap-6 border-t" style={{ borderColor:"rgba(255,255,255,.06)" }}>
           {[
             { Icon: MapPin, label: "Address", value: "Rathinam College Campus, Coimbatore, Tamil Nadu — 641021" },
-            { Icon: Phone,  label: "Phone",   value: "+91 422 000 0000" },
-            { Icon: Mail,   label: "Email",   value: "admissions@rgu.edu.in" },
+            { Icon: Phone,  label: "Phone",   value: "844 844 8909" },
+            // { Icon: Mail,   label: "Email",   value: "admissions@rgu.edu.in" },
           ].map((c) => (
             <div key={c.label} className="flex items-start gap-3">
               <c.Icon size={18} className="mt-0.5 flex-shrink-0" style={{ color:"rgba(255,255,255,.25)" }} />
