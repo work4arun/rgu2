@@ -204,7 +204,7 @@ function HeroSection() {
 
 
       {/* ── CENTER-LEFT CONTENT ── */}
-      <div className="absolute top-[28%] md:top-1/2 left-0 md:left-[8vw] -translate-y-1/2 z-30 px-6 md:px-9 w-full md:max-w-[680px]">
+      <div className="absolute top-[36%] md:top-1/2 left-0 md:left-[8vw] -translate-y-1/2 z-30 px-6 md:px-9 w-full md:max-w-[680px]">
 
         {/* Live dot + label */}
         <div style={{
@@ -1888,7 +1888,7 @@ function RecognitionSection() {
 
 
       {/* ── 3 Circle Nav Bubbles — Mobile: Horizontal over Earth | Desktop: Vertical Left ── */}
-      <div className="absolute flex flex-row lg:flex-col items-center gap-4 lg:gap-[18px] bottom-[32%] sm:bottom-44 lg:bottom-auto lg:top-1/2 left-0 right-0 lg:right-auto lg:left-[36px] justify-center lg:justify-start z-20 lg:-translate-y-1/2">
+      <div className="absolute flex flex-row lg:flex-col items-center gap-4 lg:gap-[18px] bottom-[22%] sm:bottom-32 lg:bottom-auto lg:top-1/2 left-0 right-0 lg:right-auto lg:left-[36px] justify-center lg:justify-start z-20 lg:-translate-y-1/2">
         <a href="#ranking" title="Ranking and Excellence" className="shrink-0" style={{
           width: 76, height: 76, minWidth: 76, minHeight: 76, maxWidth: 76, maxHeight: 76, flexShrink: 0, borderRadius: "50%", display: "flex", flexDirection: "column",
           alignItems: "center", justifyContent: "center", textDecoration: "none", overflow: "hidden",
