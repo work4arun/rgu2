@@ -210,7 +210,7 @@ function HeroSection() {
         <div style={{
           display: "inline-flex", alignItems: "center", gap: 8, padding: "7px 16px", borderRadius: 100,
           background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.14)", backdropFilter: "blur(12px)",
-          marginBottom: 20,
+          marginBottom: 12,
           opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(16px)",
           transition: "all .6s ease .15s"
         }}>
@@ -228,19 +228,19 @@ function HeroSection() {
 
         {/* Main heading */}
         <h1 style={{
-          fontFamily: "'Sora',sans-serif", fontWeight: 900, lineHeight: 1.15, marginBottom: 28,
+          fontFamily: "'Sora',sans-serif", fontWeight: 900, lineHeight: 1.1, marginBottom: 16,
           opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(24px)", transition: "all .7s ease .25s"
         }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr" }}>
             <div style={{ gridRow: 1, gridColumn: 1, opacity: headingIdx === 0 ? 1 : 0, transition: "opacity 1s ease", pointerEvents: headingIdx === 0 ? "auto" : "none" }}>
               <span style={{
-                display: "block", fontSize: "clamp(2.5rem,6vw,5.2rem)", color: "transparent",
+                display: "block", fontSize: "clamp(1.6rem,6vw,5.2rem)", color: "transparent",
                 WebkitTextStroke: "1px rgba(255,255,255,.28)", letterSpacing: "-.03em"
               }}>
                 ADMISSION
               </span>
               <span style={{
-                display: "block", fontSize: "clamp(3.1rem,7.5vw,6.4rem)", color: "#fff",
+                display: "block", fontSize: "clamp(2rem,7.5vw,6.4rem)", color: "#fff",
                 letterSpacing: "-.04em", textShadow: "0 0 80px rgba(168,85,247,.65),0 0 160px rgba(168,85,247,.25)"
               }}>
                 OPEN 2026
@@ -249,13 +249,13 @@ function HeroSection() {
 
             <div style={{ gridRow: 1, gridColumn: 1, opacity: headingIdx === 1 ? 1 : 0, transition: "opacity 1s ease", pointerEvents: headingIdx === 1 ? "auto" : "none" }}>
               <span style={{
-                display: "block", fontSize: "clamp(2.5rem,6vw,5.2rem)", color: "transparent",
+                display: "block", fontSize: "clamp(1.6rem,6vw,5.2rem)", color: "transparent",
                 WebkitTextStroke: "1px rgba(255,255,255,.28)", letterSpacing: "-.03em"
               }}>
                 RGU SAT
               </span>
               <span style={{
-                display: "block", fontSize: "clamp(3.1rem,7.5vw,6.4rem)", color: "#fff",
+                display: "block", fontSize: "clamp(2rem,7.5vw,6.4rem)", color: "#fff",
                 letterSpacing: "-.04em", textShadow: "0 0 80px rgba(168,85,247,.65),0 0 160px rgba(168,85,247,.25)"
               }}>
                 2026
@@ -263,8 +263,8 @@ function HeroSection() {
             </div>
           </div>
           <span style={{
-            display: "block", fontSize: "clamp(1.3rem,2.5vw,1.9rem)", fontWeight: 600,
-            letterSpacing: ".01em", marginTop: 16,
+            display: "block", fontSize: "clamp(0.95rem,2.5vw,1.9rem)", fontWeight: 600,
+            letterSpacing: ".01em", marginTop: 10,
             background: "linear-gradient(90deg,#a3e635,#34d399,#38bdf8)",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
           }}>
@@ -276,7 +276,7 @@ function HeroSection() {
         <div style={{
           position: "relative", overflow: "hidden", borderRadius: 16, padding: "18px 24px",
           background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", backdropFilter: "blur(16px)",
-          marginBottom: 28, marginTop: 42, maxWidth: 520,
+          marginBottom: 20, marginTop: 20, maxWidth: 520,
           opacity: mounted ? 1 : 0, transition: "opacity .7s ease .4s"
         }}>
           <div style={{
