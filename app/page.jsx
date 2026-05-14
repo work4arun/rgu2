@@ -1875,28 +1875,17 @@ function RecognitionSection() {
         backgroundSize: "60px 60px", zIndex: 1
       }} />
 
-      {/* The Earth Image - Now positioned absolutely at the bottom to fill height correctly */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 5 }}>
-        <img
-          src="/earth-half.png"
-          alt="Earth Globe Background"
-          style={{
-            width: "100%", height: "100%", display: "block",
-            objectFit: "cover", objectPosition: "bottom center",
-            opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(120px)",
-            transition: "all 1.5s cubic-bezier(0.16, 1, 0.3, 1)"
-          }}
-          onError={e => {
-            e.currentTarget.style.display = "none";
-            e.currentTarget.nextSibling.style.display = "block";
-          }}
-        />
-        <div style={{
-          display: "none", margin: "0 auto", width: "100%", paddingBottom: "50%",
-          background: "radial-gradient(ellipse at bottom, #2563eb, transparent 70%)",
-          borderTopLeftRadius: "50% 100%", borderTopRightRadius: "50% 100%", opacity: 0.3
-        }} />
-      </div>
+      {/* The Earth Image - CSS background-image fills full section on all screen sizes */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 5,
+        backgroundImage: "url('/earth-half.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "bottom center",
+        backgroundRepeat: "no-repeat",
+        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(120px)",
+        transition: "all 1.5s cubic-bezier(0.16, 1, 0.3, 1)"
+      }} />
+
 
       {/* ── 3 Circle Nav Bubbles — Mobile: Horizontal over Earth | Desktop: Vertical Left ── */}
       <div className="absolute flex flex-row lg:flex-col items-center gap-4 lg:gap-[18px] bottom-[12%] sm:bottom-24 lg:bottom-auto lg:top-1/2 left-0 right-0 lg:right-auto lg:left-[36px] justify-center lg:justify-start z-20 lg:-translate-y-1/2">
